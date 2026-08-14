@@ -44,15 +44,19 @@ def irrep_blocks(orbsym, mol=None) -> dict[str, np.ndarray]:
     Parameters
     ----------
     orbsym:
-        Symmetry ids of the active orbitals, as produced by
-        :func:`casgf.active_space.active_orbsym`.
+        Symmetry labels of the active orbitals, as produced by
+        :func:`casgf.active_space.active_orbsym`.  PySCF hands these out either
+        as numeric ids (``symm.label_orb_symm(mol, mol.irrep_id, ...)``) or as
+        names (``mol.irrep_name``); both are accepted.
     mol:
-        If given, its point group is used to turn the numeric ids into names
-        (``"Ag"``, ``"B1u"``, ...).  Otherwise the ids are used as keys.
+        If given, its point group is used to turn numeric ids into names
+        (``"Ag"``, ``"B1u"``, ...).  Ignored when the labels are already names.
     """
     orbsym = np.asarray(orbsym)
+    numeric = np.issubdtype(orbsym.dtype, np.integer)
+
     names: dict[int, str] = {}
-    if mol is not None and getattr(mol, "groupname", None):
+    if numeric and mol is not None and getattr(mol, "groupname", None):
         try:
             from pyscf import symm
 
@@ -60,11 +64,12 @@ def irrep_blocks(orbsym, mol=None) -> dict[str, np.ndarray]:
                 int(i): symm.irrep_id2name(mol.groupname, int(i)) for i in np.unique(orbsym)
             }
         except Exception:
+            # An unrecognised point group is not fatal; fall back to raw ids.
             names = {}
 
     blocks: dict[str, np.ndarray] = {}
     for sym in np.unique(orbsym):
-        key = names.get(int(sym), str(int(sym)))
+        key = names.get(int(sym), str(sym)) if numeric else str(sym)
         blocks[key] = np.flatnonzero(orbsym == sym)
     return blocks
 

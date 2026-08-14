@@ -117,13 +117,19 @@ casgf scan --geometries path_clean_awk --ncas 8 --nelec 8 --out scan/
 
 ## Examples
 
+The three run through one system: **cyclobutadiene**, whose automerization — the two double
+bonds trading places through a square transition state — is the textbook
+orbital-symmetry-controlled process, and whose antiaromatic four-electron $\pi$ system is a
+standard multireference test case.
+
 | | what it does | cost |
 | --- | --- | --- |
-| [`01_spectral_function.ipynb`](examples/01_spectral_function.ipynb) | spectral function vs `log\|det G\|` for benzene CAS(6,6) and H4 CAS(4,4), with and without the interaction | seconds |
-| [`02_symmetry_and_winding.ipynb`](examples/02_symmetry_and_winding.ipynb) | irrep blocking, leakage, determinant factorisation, and per-block winding numbers | seconds |
-| [`03_green_function_map.py`](examples/03_green_function_map.py) | `log\|det G\|` as an image along a geometric scan | seconds |
+| [`01_spectral_function.ipynb`](examples/01_spectral_function.ipynb) | spectral function vs `log\|det G\|` for cyclobutadiene CAS(4,4) and benzene CAS(6,6), with and without the interaction | seconds |
+| [`02_symmetry_and_winding.ipynb`](examples/02_symmetry_and_winding.ipynb) | D2h irrep blocking, leakage, determinant factorisation and per-block winding numbers on the rectangle — then the square, where the frontier pair goes degenerate and the blocking stops being defined at all | seconds |
+| [`03_green_function_map.py`](examples/03_green_function_map.py) | the whole automerization path: energy profile (barrier ≈ 5.8 kcal/mol) and `log\|det G\|` as an image | ~30 s |
 
-Every example generates its own geometries; nothing depends on an external data file.
+Every example generates its own geometries from bond lengths written in the file; nothing
+depends on an external data file.
 
 ## Correctness
 

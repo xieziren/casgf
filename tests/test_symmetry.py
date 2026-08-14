@@ -60,6 +60,18 @@ def test_irrep_blocks_from_labels():
     assert np.array_equal(blocks["1"], [1, 3])
 
 
+def test_irrep_blocks_from_string_labels():
+    """PySCF hands out irrep *names* as readily as ids; both must work."""
+    blocks = irrep_blocks(np.array(["Au", "B1g", "Au", "B3u"]))
+    assert set(blocks) == {"Au", "B1g", "B3u"}
+    assert np.array_equal(blocks["Au"], [0, 2])
+    assert np.array_equal(blocks["B1g"], [1])
+
+
+def test_block_indices_accepts_string_labels():
+    assert np.array_equal(block_indices("Au", 4, orbsym=["Au", "B1g", "Au", "B3u"]), [0, 2])
+
+
 def test_irrep_and_parity_agree_for_alternating_orbitals():
     """Index-parity slicing is only valid when the orbitals alternate like this."""
     orbsym = [0, 1, 0, 1, 0, 1]

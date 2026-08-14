@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+title: "casgf: Green's functions and topological winding numbers from CASSCF active spaces"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: Xie
+    given-names: Ziren
+version: 0.1.0
+license: MIT
+repository-code: "https://github.com/xieziren/casgf"
+abstract: >-
+  Computes one-particle Green's functions of CASSCF active spaces by full
+  diagonalisation of the N and N+-1 particle-number sectors, assembled into a
+  Lehmann representation. Provides spectral functions, maps of the poles and
+  zeros of det G, orbital-symmetry blocking, and topological winding numbers
+  evaluated on closed contours in the complex frequency plane. Built on PySCF
+  and NumPy, with no compiled dependencies.
+keywords:
+  - quantum chemistry
+  - CASSCF
+  - Green's function
+  - exact diagonalisation
+  - spectral function
+  - topological invariant
+  - winding number

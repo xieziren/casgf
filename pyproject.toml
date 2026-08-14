@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "casgf"
+version = "0.1.0"
+description = "One-particle Green's functions, spectral functions and topological winding numbers from CASSCF active spaces"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [{ name = "Ziren Xie" }]
+keywords = [
+    "quantum-chemistry",
+    "casscf",
+    "greens-function",
+    "pyscf",
+    "topological-invariant",
+    "winding-number",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "pyscf>=2.3",
+]
+
+[project.optional-dependencies]
+plot = ["matplotlib>=3.7"]
+dev = ["pytest>=7.4", "ruff>=0.5"]
+
+[project.scripts]
+casgf = "casgf.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/xieziren/casgf"
+Issues = "https://github.com/xieziren/casgf/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/casgf"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "NPY"]
